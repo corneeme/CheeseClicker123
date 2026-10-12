@@ -19,6 +19,7 @@ Layout
     *leftBox
         contains:BulkDisplay, Buildings
         header:Buildings
+        tooltip class:tooltip
     *centerBox
         contains:Resources, Buttons
         header:Clicker
