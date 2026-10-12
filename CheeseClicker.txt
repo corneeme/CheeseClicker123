@@ -9,7 +9,22 @@ Settings
     building cost refund: 50% 
 
 Layout 
-    use default 
+    *topBox
+        header: Top Section
+
+    *middleRow
+        contains: leftBox, centerBox, rightBox
+        class: rowContainer
+
+    *leftBox
+        contains: BulkDisplay, Buildings
+        header: Buildings
+    *centerBox
+        contains: Resources, Buttons
+        header: Clicker
+
+    *rightBox
+        header: Right Section
 
 Resources 
     *cheese
