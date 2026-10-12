@@ -1,0 +1,42 @@
+Let's make a game!
+    name: CheeseWorks International
+    author: Nosreme
+    desc: Muahahahahah 
+    version: 1.0 
+
+Settings 
+    building cost increase: 115% 
+    building cost refund: 50% 
+    Layout 
+    use default 
+
+Resources 
+    *cheese
+        name: Cheese 
+        desc: A mystical and wonderful thing, with infinite properties.
+
+Buttons 
+    *manifestCheese
+        name: Create Cheese
+        desc: Ah, the humble cheesemaker. In the beginnning, this was all anyone had to make this wondorus substance, their own mind. 
+        on click: yield 1 cheese 
+
+Buildings 
+    *cow 
+        name: Cow 
+        desc: The day humanity discovered cows could make cheese was the day humainity learned of the universe. Grants 0.1 Cheese per second.
+        cost: 15 cheese 
+        on tick: yield 0.1 cheese 
+
+Upgrades 
+    *concentratedConcentration
+        name: Concenctrated Concentration
+        desc: You have trained yourself to focus solely on the cheese. You have doubled your CPC.
+        cost: 50 cheese 
+        passive: multiply yield of manifestCheese by 2 
+
+Achievements 
+    *welcome
+        name: Welcome to CheeseWorks International!
+        desc: As a INSERT RANK, you will work on the factory floor to aid in the production of our delicious cheese! Employees are reminded that any anomalies are to be reported to upper management immidently. (CheeseWorks International Orientation Video)
+        req: manifestCheese:clicks>=1
