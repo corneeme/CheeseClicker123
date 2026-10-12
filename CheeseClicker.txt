@@ -29,7 +29,7 @@ Buildings
         on tick: yield 0.1 cheese 
 
 Upgrades 
-    *concentratration
+    *concentratration 
         name: Concenctrated Concentration
         desc: You have trained yourself to focus solely on the cheese. You have doubled your CPC.
         cost: 50 cheese 
