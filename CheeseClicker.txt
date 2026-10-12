@@ -7,7 +7,7 @@ Let's make a game!
 Settings 
     building cost increase: 115% 
     building cost refund: 50% 
-    stylesheet:https://raw.githubusercontent.com/corneeme/CheeseClicker123/refs/heads/main/cheese.css
+    stylesheet:https://raw.githubusercontent.com/corneeme/CheeseClicker123/refs/heads/main/cheese.txt
 
 Layout 
     *topBox
