@@ -3,11 +3,11 @@ Let's make a game!
     author: Nosreme
     desc: Muahahahahah 
     version: 0.16
-    stylesheet:https://raw.githubusercontent.com/corneeme/CheeseClicker123/refs/heads/main/cheese.css
 
 Settings 
     building cost increase: 115% 
     building cost refund: 50% 
+    stylesheet:https://raw.githubusercontent.com/corneeme/CheeseClicker123/refs/heads/main/cheese.css
 
 Layout 
     *topBox
