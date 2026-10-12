@@ -2,7 +2,7 @@ Let's make a game!
     name: CheeseWorks International
     author: Nosreme
     desc: Muahahahahah 
-    version: 0.15
+    version: 0.16
 
 Settings 
     building cost increase: 115% 
@@ -14,7 +14,6 @@ Layout
 
     *middleRow
         contains:leftBox, centerBox, rightBox
-        class:rowContainer
 
     *leftBox
         contains:BulkDisplay, Buildings
@@ -25,6 +24,7 @@ Layout
 
     *rightBox
         header:Right Section
+        contains:Log
 
 Resources 
     *cheese
