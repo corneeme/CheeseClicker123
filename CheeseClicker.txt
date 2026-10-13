@@ -12,7 +12,7 @@ Settings
 Layout 
     *topHeader 
         header:Game Header 
-        Title class:headerBox 
+        class:headerBox 
     
     *bodyWrapper 
         contains:leftCol, centerBox, rightCol 
@@ -25,12 +25,12 @@ Layout
     
     *leftTop
         contains:Resources
-        header: Left Top (Resources) 
+        header:Left Top (Resources) 
         class:gameBox 
     
     *leftBottom 
         contains:BulkDisplay, Buildings
-        header: Left Bottom (Buildings) 
+        header:Left Bottom (Buildings) 
         class:gameBox 
     
     *centerBox 
