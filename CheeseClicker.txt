@@ -10,23 +10,47 @@ Settings
     stylesheet:https://raw.githubusercontent.com/corneeme/CheeseClicker123/refs/heads/main/stylesheet.txt
 
 Layout 
-    *topBox
-        header:Top Section
-
-    *middleRow
-        contains:leftBox, centerBox, rightBox
-
-    *leftBox
-        contains:BulkDisplay, Buildings
-        header:Buildings
-        tooltip class:tooltip
-    *centerBox
-        contains:Resources, Buttons
-        header:Clicker
-
-    *rightBox
-        header:Right Section
-        contains:Log
+    *topHeader 
+        header: Game Header 
+        Title class: headerBox 
+    
+    *bodyWrapper 
+        contains: leftCol, centerBox, rightCol 
+        class: bodyContainer 
+    
+    
+    *leftCol 
+        contains: leftTop, leftBottom 
+        class: sideColumn 
+    
+    *leftTop
+        contains: Resources
+        header: Left Top (Resources) 
+        class: gameBox 
+    
+    *leftBottom 
+        contains: BulkDisplay, Buildings
+        header: Left Bottom (Buildings) 
+        class: gameBox 
+    
+    *centerBox 
+        contains: Buttons
+        header: Center Hub (Actions) 
+        class: gameBox centerColumn 
+    
+    *rightCol 
+        contains: rightTop, rightBottom 
+        class: sideColumn 
+    
+    *rightTop 
+        contains: Upgrades 
+        header: Right Top (Upgrades) 
+        class: gameBox 
+    
+    *rightBottom 
+        contains: Achievements 
+        header: Right Bottom (Achievements) 
+        class: gameBox
 
 Resources 
     *cheese
