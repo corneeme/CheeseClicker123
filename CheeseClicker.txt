@@ -66,9 +66,15 @@ Buttons
 Buildings 
     *cow 
         name:Cow 
-        desc:The day humanity discovered cows could make cheese was the day humanity learned of the universe. Grants 0.1 Cheese per second.
+        desc:The day humanity discovered cows could make cheese was the day humanity learned of the universe. Produces [cheese:ps] cheese per second.
         cost:15 cheese 
-        on tick:yield 0.1 cheese 
+        on tick:yield 0.1 cheese
+
+    *creamery
+        name:Creamery
+        desc:The humble homes of cheese production, these buildings have been bolstering the creation of cheese for centuries, fueling innovation. Produces [cheese:ps] cheese per second.
+        cost:100 cheese
+        on tick:yield 1 cheese
 
 Upgrades 
     *concentration 
