@@ -194,7 +194,7 @@
 .headerBox { 
 
 	width: 100%; 
-\* ------------------------------------------------ 
+/* ------------------------------------------------ 
 CONTROL HEADER SIZE HERE: Change 'height' or 'padding' to resize the box. 
 ------------------------------------------------ */ 
 	height: 80px; 
@@ -209,7 +209,7 @@ CONTROL HEADER SIZE HERE: Change 'height' or 'padding' to resize the box.
 	margin-bottom: 15px; 
 	border-radius: 6px; } 
 
-*/ =================================================== 
+/* =================================================== 
 2. MAIN BODY CONTAINER (3 COLUMNS SIDE-BY-SIDE) 
 =================================================== */ 
 
