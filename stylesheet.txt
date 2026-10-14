@@ -1,21 +1,33 @@
 
-/* ========================================
-   THEME AND GLOBAL STYLING
-   ======================================== */
+/* =====================================================
+   1. THEME VARIABLES
+   ===================================================== */
 
 :root {
     --bg-main: #202A30;
     --bg-panel: #F3EFE5;
     --bg-panel-hover: #FFFFFF;
+    --bg-panel-dark: #29363D;
+
     --accent: #D7A83E;
     --accent-dark: #A77A20;
+
     --text-main: #202A30;
     --text-light: #F3EFE5;
+    --text-muted: #687177;
+
     --border: #C8C1B3;
     --success: #326747;
     --danger: #B94235;
+
     --radius: 6px;
+    --gap: 8px;
 }
+
+
+/* =====================================================
+   2. GLOBAL STYLING
+   ===================================================== */
 
 #game {
     background: var(--bg-main);
@@ -24,9 +36,11 @@
     text-shadow: none;
 }
 
-/* ========================================
-   PANELS AND BOXES
-   ======================================== */
+#game *,
+#game *::before,
+#game *::after {
+    box-sizing: border-box;
+}
 
 .box {
     text-align: center;
@@ -34,7 +48,11 @@
     box-shadow: none;
 }
 
-.thing,
+
+/* =====================================================
+   3. PANELS, HEADERS AND FOOTERS
+   ===================================================== */
+
 .box-header,
 .box-footer,
 .box-bit {
@@ -43,10 +61,47 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     margin: 3px;
+}
+
+.box-header {
+    font-weight: bold;
+    padding: 8px;
+    margin-bottom: 4px;
+    border-bottom: 3px solid var(--accent);
+}
+
+.box-footer {
+    margin-top: 4px;
+}
+
+.title {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+/* =====================================================
+   4. BUILDINGS, UPGRADES AND INTERACTIVE ITEMS
+   ===================================================== */
+
+.thing {
+    display: inline-block;
+    padding: 4px;
+    margin: 3px;
+
+    background: var(--bg-panel);
+    color: var(--text-main);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    cursor: pointer;
+
     transition:
         background-color 0.15s ease,
         border-color 0.15s ease,
-        transform 0.1s ease;
+        transform 0.1s ease,
+        opacity 0.15s ease;
 }
 
 .thing:hover {
@@ -58,15 +113,24 @@
     transform: scale(0.98);
 }
 
-/* ========================================
-   BUILDINGS AND UPGRADES
-   ======================================== */
-
 .building {
     display: block;
     font-size: 14px;
     margin-right: 0;
 }
+
+.button > .thing-text {
+    text-decoration: underline;
+}
+
+.listing {
+    font-weight: normal;
+}
+
+
+/* =====================================================
+   5. OWNED, LOCKED AND UNAFFORDABLE ITEMS
+   ===================================================== */
 
 .upgrade.owned,
 .achiev.owned {
@@ -81,10 +145,6 @@
     border: 1px solid var(--border);
 }
 
-/* ========================================
-   COST INDICATORS
-   ======================================== */
-
 .thing-costs {
     font-weight: bold;
     text-shadow: none;
@@ -98,272 +158,286 @@
     color: var(--danger);
 }
 
-/* ========================================
-   HEADER BARS
-   ======================================== */
 
-.box-header {
-    font-weight: bold;
+/* =====================================================
+   6. FULL-WIDTH ELEMENTS
+   ===================================================== */
+
+.fullWidth {
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+    position: relative;
+    z-index: 10;
+}
+
+#game .fullWidth {
+    height: auto;
+    min-height: 0;
+}
+
+.fullWidth,
+.fullWidth:hover {
+    background: var(--bg-panel-dark);
+    color: var(--text-light);
+    box-shadow: none;
+}
+
+.fullWidth:before,
+.fullWidth:after {
+    content: "";
+    height: 1px;
+
+    background: rgba(243, 239, 229, 0.5);
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+.fullWidth:before {
+    top: -1px;
+}
+
+.fullWidth:after {
+    bottom: -1px;
+}
+
+.fullWidth .thing-icon {
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+
+.fullWidth .thing-text {
+    margin-top: -4px;
+    margin-bottom: -4px;
+}
+
+#game.filtersOn .thing-icon {
+    filter: drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.5));
+}
+
+
+/* =====================================================
+   7. ORIGINAL IGМ GAME LAYOUT
+   These IDs are retained from your original stylesheet.
+   ===================================================== */
+
+/* Main game area */
+
+#box-main {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 60%;
+
+    position: absolute;
+    overflow: hidden;
+}
+
+/* Resource display */
+
+#box-res.fullWidth {
+    width: 100%;
+    top: 5%;
+    height: 5%;
+    min-height: 32px;
+
+    z-index: 100;
+    position: absolute;
+}
+
+/* Buttons container */
+
+#box-buttons {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    position: absolute;
+}
+
+/* Store area */
+
+#box-store {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40%;
+
+    position: absolute;
+}
+
+/* Buildings and upgrades lists */
+
+#box-buildings,
+#box-upgrades {
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    right: 0;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    padding-bottom: 48px;
+
+    position: absolute;
+}
+
+#box-buildings {
+    right: 50%;
+}
+
+#box-buildings > .box-header {
+    padding-bottom: 16px;
+}
+
+/* Bulk purchase display */
+
+#bulkDisplay {
+    margin: -20px 24px 6px;
+    border: none;
+    background: transparent;
+}
+
+
+/* =====================================================
+   8. CUSTOM HEADER
+   Requires a corresponding .headerBox HTML element.
+   ===================================================== */
+
+.headerBox {
+    width: 100%;
+    min-height: 80px;
+    padding: 15px;
+
+    box-sizing: border-box;
+
+    background: var(--bg-panel-dark);
+    color: var(--text-light);
+
     border-bottom: 3px solid var(--accent);
-    padding: 8px;
-}
 
-.title {
-    text-decoration: none;
+    text-align: center;
+    font-size: 20px;
     font-weight: bold;
-}
 
-#game
-{
-	background:#fff;
-	font-size:12px;
-	color:rgba(0,0,0,0.9);
-	text-shadow:none;
+    margin-bottom: 15px;
 }
 
 
-.box
-{
-	text-align:center;
-	padding:0px;
-	box-shadow:none;
-}
-.thing,.box-header,.box-footer,.box-bit
-{
-	background:rgba(255,255,255,0.5);
-	border:1px solid rgba(0,0,0,0.9);
-	margin:1px;
-}
-.thing:hover
-{
-	background:rgba(255,255,255,0.75);
-}
+/* =====================================================
+   9. CUSTOM THREE-COLUMN GRID
+   Requires .bodyContainer and the relevant child elements.
+   ===================================================== */
 
-.box-header
-{
-	margin-bottom:4px;
-}
-.box-footer
-{
-	margin-top:4px;
-}
-
-.title
-{
-	text-decoration:underline;
-}
-
-#box-main
-{
-	left:0px;
-	top:0px;
-	bottom:0px;
-	overflow:hidden;
-	width:60%;
-	position:absolute;
-}
-#box-res.fullWidth
-{
-	width:100%;
-	top:5%;
-	height:5%;
-	min-height:32px;
-	z-index:100;
-	position:absolute;
-}
-#box-buttons
-{
-	top:0px;
-	right:0px;
-	bottom:0px;
-	left:0px;
-	position:absolute;
-}
-#box-store
-{
-	right:0px;
-	top:0px;
-	bottom:0px;
-	width:40%;
-	position:absolute;
-}
-#box-buildings,#box-upgrades
-{
-	top:0px;
-	bottom:0px;
-	width:50%;
-	right:0%;
-	overflow-x:hidden;
-	overflow-y:scroll;
-	padding-bottom:48px;/* this is to accommodate the info and settings buttons */
-	position:absolute;
-}
-#box-buildings
-{right:50%;}
-
-#box-buildings>.box-header
-{
-	padding-bottom:16px;
-}
-#bulkDisplay
-{
-	margin:-20px 24px 6px 24px;
-	border:none;
-	background:transparent;
-}
-
-
-.thing
-{
-	display:inline-block;
-	padding:0px;
-	cursor:pointer;
-}
-.thing:active
-{
-	opacity:0.5;
-}
-.upgrade.owned,.achiev.owned
-{
-	box-shadow:0px 0px 0px 2px rgba(0,0,0,0.5) inset;
-}
-.thing.cantAfford
-{
-	opacity:0.65;
-}
-.upgrade.cantAfford
-{
-	border:none;
-}
-
-.thing-costs{font-weight:bold;text-shadow:1px 1px 0px rgba(0,0,0,0.5);}
-.cost.hasEnough{color:#0f0;}
-.cost.notEnough{color:#f00;}
-
-
-.button>.thing-text
-{
-	text-decoration:underline;
-}
-
-.building
-{
-	display:block;
-	margin-right:0px;
-	font-size:14px;
-}
-
-.fullWidth
-{
-	display:block;
-	margin-left:0px;
-	margin-right:0px;
-	z-index:10;
-}
-#game .fullWidth
-{
-	height:auto;
-	min-height:auto;
-}
-.fullWidth,.fullWidth:hover
-{
-	background:rgba(0,0,0,0.75);
-	box-shadow:none;
-	color:#fff;
-}
-.fullWidth:before,.fullWidth:after
-{
-	content:'';
-	height:1px;
-	background:rgba(255,255,255,0.75);
-	position:absolute;
-	left:0px;
-	right:0px;
-	z-index:-1;
-}
-.fullWidth:before{top:-1px;}
-.fullWidth:after{bottom:-1px;}
-
-.fullWidth .thing-icon
-{
-	margin-top:-10px;
-	margin-bottom:-10px;
-}
-.fullWidth .thing-text
-{
-	margin-top:-4px;
-	margin-bottom:-4px;
-}
-
-.listing
-{
-	font-weight:normal;
-}
-
-#game.filtersOn .thing-icon{filter:drop-shadow(3px 3px 1px rgba(0,0,0,0.5));}
-
-
-/* =================================================== 
-1. TOP HEADER BOX (STRETCHES SIDE-TO-SIDE) 
-=================================================== */ 
-.headerBox { 
-
-	width: 100%; 
-/* ------------------------------------------------ 
-CONTROL HEADER SIZE HERE: Change 'height' or 'padding' to resize the box. 
------------------------------------------------- */ 
-	height: 80px; 
-	padding: 15px; 
-	box-sizing: 
-	border-box; 
-	background-color: #2c3e50; 
-	color: #ffffff; 
-	text-align: center; 
-	font-size: 20px; 
-	font-weight: bold; 
-	margin-bottom: 15px; 
-	} 
-
-/* =================================================== 
-2. MAIN BODY CONTAINER (3 COLUMNS SIDE-BY-SIDE) 
-=================================================== */ 
 .bodyContainer {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(100px, 0.4fr) minmax(0, 1fr);
-    grid-template-rows: repeat(2, minmax(150px, 1fr));
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(100px, 0.4fr)
+        minmax(0, 1fr);
+
+    grid-template-rows:
+        repeat(2, minmax(150px, auto));
+
     gap: 15px;
+
     width: 100%;
     min-height: 70vh;
+
     box-sizing: border-box;
+    align-items: stretch;
 }
 
-/* Side columns (Left &amp; Right wrappers for stacked boxes) */ 
+/* Left and right stacks */
 
-.sideColumn { 
-	display: flex; 
-	flex-direction: column; 
-	flex: 1; /* Left &amp; Right columns share equal width */ 
-	gap: 15px; 
-} 
+.sideColumn {
+    display: grid;
+    grid-template-rows: repeat(2, minmax(150px, auto));
+    gap: 15px;
 
-/* Middle column (Center box stretching top-to-bottom) */ 
+    min-width: 0;
+    min-height: 0;
+}
 
-.centerColumn { 
-	flex: 1.2; /* Slightly wider center column; adjust as needed */ 
-	display: flex; 
-	flex-direction: column; } 
+.sideColumn:first-child {
+    grid-column: 1;
+    grid-row: 1 / 3;
+}
 
-/* =================================================== 
-3. GENERAL BOX STYLING 
-=================================================== */ 
+.sideColumn:last-child {
+    grid-column: 3;
+    grid-row: 1 / 3;
+}
+
+/* Center panel spanning both rows */
+
+.centerColumn {
+    grid-column: 2;
+    grid-row: 1 / 3;
+
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 0;
+}
+
+/* Individual custom boxes */
 
 .gameBox {
     min-width: 0;
     min-height: 0;
+
+    padding: 12px;
+
     box-sizing: border-box;
+
+    background: var(--bg-panel);
+    color: var(--text-main);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
 }
+
+/* Optional alternative for a grid item that spans both rows */
 
 .gameBox.fullHeight {
     grid-column: 2;
     grid-row: 1 / 3;
+}
+
+
+/* =====================================================
+   10. SMALLER WINDOWS
+   ===================================================== */
+
+@media (max-width: 700px) {
+    .bodyContainer {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+        min-height: 0;
+    }
+
+    .sideColumn:first-child,
+    .sideColumn:last-child,
+    .centerColumn,
+    .gameBox.fullHeight {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .sideColumn {
+        grid-template-rows: auto;
+    }
+
+    .headerBox {
+        font-size: 17px;
+        min-height: 60px;
+    }
 }
