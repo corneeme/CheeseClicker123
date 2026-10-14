@@ -1,3 +1,118 @@
+
+/* ========================================
+   THEME AND GLOBAL STYLING
+   ======================================== */
+
+:root {
+    --bg-main: #202A30;
+    --bg-panel: #F3EFE5;
+    --bg-panel-hover: #FFFFFF;
+    --accent: #D7A83E;
+    --accent-dark: #A77A20;
+    --text-main: #202A30;
+    --text-light: #F3EFE5;
+    --border: #C8C1B3;
+    --success: #326747;
+    --danger: #B94235;
+    --radius: 6px;
+}
+
+#game {
+    background: var(--bg-main);
+    color: var(--text-light);
+    font-size: 13px;
+    text-shadow: none;
+}
+
+/* ========================================
+   PANELS AND BOXES
+   ======================================== */
+
+.box {
+    text-align: center;
+    padding: 4px;
+    box-shadow: none;
+}
+
+.thing,
+.box-header,
+.box-footer,
+.box-bit {
+    background: var(--bg-panel);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin: 3px;
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        transform 0.1s ease;
+}
+
+.thing:hover {
+    background: var(--bg-panel-hover);
+    border-color: var(--accent-dark);
+}
+
+.thing:active {
+    transform: scale(0.98);
+}
+
+/* ========================================
+   BUILDINGS AND UPGRADES
+   ======================================== */
+
+.building {
+    display: block;
+    font-size: 14px;
+    margin-right: 0;
+}
+
+.upgrade.owned,
+.achiev.owned {
+    box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.thing.cantAfford {
+    opacity: 0.55;
+}
+
+.upgrade.cantAfford {
+    border: 1px solid var(--border);
+}
+
+/* ========================================
+   COST INDICATORS
+   ======================================== */
+
+.thing-costs {
+    font-weight: bold;
+    text-shadow: none;
+}
+
+.cost.hasEnough {
+    color: var(--success);
+}
+
+.cost.notEnough {
+    color: var(--danger);
+}
+
+/* ========================================
+   HEADER BARS
+   ======================================== */
+
+.box-header {
+    font-weight: bold;
+    border-bottom: 3px solid var(--accent);
+    padding: 8px;
+}
+
+.title {
+    text-decoration: none;
+    font-weight: bold;
+}
+
 #game
 {
 	background:#fff;
@@ -212,16 +327,15 @@ CONTROL HEADER SIZE HERE: Change 'height' or 'padding' to resize the box.
 /* =================================================== 
 2. MAIN BODY CONTAINER (3 COLUMNS SIDE-BY-SIDE) 
 =================================================== */ 
-
-.bodyContainer { 
-	display: flex; 
-	flex-direction: row; 
-	justify-content: space-between; 
-	align-items: stretch; 
-	/* Stretches columns to full height */ 
-	gap: 15px; width: 100%; 
-
-} 
+.bodyContainer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(100px, 0.4fr) minmax(0, 1fr);
+    grid-template-rows: repeat(2, minmax(150px, 1fr));
+    gap: 15px;
+    width: 100%;
+    min-height: 70vh;
+    box-sizing: border-box;
+}
 
 /* Side columns (Left &amp; Right wrappers for stacked boxes) */ 
 
@@ -244,10 +358,12 @@ CONTROL HEADER SIZE HERE: Change 'height' or 'padding' to resize the box.
 =================================================== */ 
 
 .gameBox {
-	background-color: #f9f9f9; 
-	border: 1px solid #cccccc; 
-	padding: 12px;
-	box-sizing: border-box; 
-	flex: 1; 
-	/* Allows stacked boxes to distribute space evenly */ 
+    min-width: 0;
+    min-height: 0;
+    box-sizing: border-box;
+}
+
+.gameBox.fullHeight {
+    grid-column: 2;
+    grid-row: 1 / 3;
 }
