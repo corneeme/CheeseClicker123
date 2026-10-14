@@ -59,7 +59,7 @@ Resources
 
 Buttons 
     *manifestCheese
-        name:Create Cheese
+        name:🧀
         desc:Ah, the humble cheesemaker. In the beginning, this was all anyone had to make this wondrous substance, their own mind. 
         on click:yield 1 cheese 
 
