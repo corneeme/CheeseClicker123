@@ -465,10 +465,9 @@ body {
 }
 
 
-/* Force square corners throughout the game */
+/* Force corners throughout the game */
 #game *,
 #game *::before,
 #game *::after {
-    border-radius: 0 !important;
+    border-radius: var(--radius) !important;
 }
-
