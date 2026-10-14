@@ -53,6 +53,12 @@ Layout
         header:Right Bottom (Achievements) 
         class:gameBox
 
+    *achPopup
+        contains:Achivements
+        header:Achivements
+        class:floatingPopup
+    
+
 Resources 
     *cheese
         name:Cheese 
@@ -67,7 +73,7 @@ Buttons
     *openachivement
         name:Achivements
         tag:utility
-        on click:show floatingPopup
+        on click:show achPopup
     
 
 Buildings 
