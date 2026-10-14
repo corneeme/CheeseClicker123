@@ -463,3 +463,12 @@ body {
         font-size: 17px;
     }
 }
+
+
+/* Force square corners throughout the game */
+#game *,
+#game *::before,
+#game *::after {
+    border-radius: 0 !important;
+}
+
