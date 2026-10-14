@@ -495,91 +495,67 @@ body {
 }
 
 
+
 /* =====================================================
-   FLOATING POPUP BASE
-   Add the class "floatingPopup" to an existing IGM box.
+   FLOATING POPUP
+   Use the single class: floatingPopup
    ===================================================== */
 
 #game .floatingPopup {
-    /* Position and stacking */
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 99999;
 
-    /* Dimensions */
     width: min(500px, calc(100vw - 2 * var(--edge-gap)));
     max-height: calc(100vh - 2 * var(--edge-gap));
-    overflow-y: auto;
+    overflow: auto;
 
-    /* Appearance */
+    margin: 0;
+    padding: var(--box-padding);
+
+    box-sizing: border-box;
+
     background: var(--bg-panel);
     color: var(--text-main);
+
     border: 2px solid var(--accent);
     border-radius: var(--radius);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
 
-    /* Internal spacing */
-    padding: var(--box-padding);
-    margin: 0;
-
-    /* Text */
     text-align: left;
     text-shadow: none;
-
-    /* Keep dimensions predictable */
-    box-sizing: border-box;
 }
 
-/* Popup heading */
+/* Popup heading, if the existing element has one */
 #game .floatingPopup .box-header {
+    margin: calc(-1 * var(--box-padding));
+    margin-bottom: var(--box-gap);
+    padding: var(--box-padding);
+
     background: var(--bg-panel-dark);
     color: var(--text-light);
+
     border: none;
     border-bottom: 3px solid var(--accent);
 
-    margin: calc(-1 * var(--box-padding));
-    margin-bottom: var(--box-gap);
-
-    padding: var(--box-padding);
     text-align: center;
 }
 
-/* Popup footer */
+/* Popup footer, if present */
 #game .floatingPopup .box-footer {
     margin: var(--box-gap) 0 0;
     padding-top: var(--box-gap);
+
     border-top: 1px solid var(--border);
 }
 
-/* Optional wider popup */
-#game .floatingPopup.popupWide {
-    width: min(760px, calc(100vw - 2 * var(--edge-gap)));
-}
-
-/* Optional compact popup */
-#game .floatingPopup.popupSmall {
-    width: min(320px, calc(100vw - 2 * var(--edge-gap)));
-}
-
-/* Optional top-aligned popup */
-#game .floatingPopup.popupTop {
-    top: var(--edge-gap);
-    transform: translateX(-50%);
-}
-
-/* Optional right-aligned popup */
-#game .floatingPopup.popupRight {
-    left: auto;
-    right: var(--edge-gap);
-    transform: none;
-}
-
-/* Popup contents stay inside the panel */
+/* Keep popup contents within its boundaries */
+#game .floatingPopup,
 #game .floatingPopup * {
-    max-width: 100%;
     box-sizing: border-box;
+    max-width: 100%;
 }
 
 
