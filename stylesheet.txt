@@ -20,7 +20,7 @@
     --success: #326747;
     --danger: #B94235;
 
-    --radius: 6px;
+    --radius: 0px;
     --gap: 8px;
 }
 
