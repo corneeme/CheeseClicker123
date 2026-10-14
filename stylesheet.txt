@@ -3,6 +3,7 @@
    1. THEME VARIABLES
    ===================================================== */
 
+
 :root {
     --bg-main: #202A30;
     --bg-panel: #F3EFE5;
@@ -21,8 +22,17 @@
     --danger: #B94235;
 
     --radius: 0px;
-    --gap: 8px;
+
+    /* Layout spacing */
+    --edge-gap: 12px;       /* Screen edge to outer boxes */
+    --box-gap: 12px;        /* Gap between neighboring boxes */
+    --header-height: 80px;  /* Header height */
+    --header-gap: 12px;     /* Header to main content */
+
+    /* Content spacing, independent of layout gaps */
+    --box-padding: 12px;
 }
+
 
 
 /* =====================================================
@@ -57,7 +67,8 @@ body {
 
 .box {
     text-align: center;
-    padding: 4px;
+    padding: 0;
+    margin: 0;
     box-shadow: none;
 }
 
@@ -74,19 +85,20 @@ body {
 
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    margin: 3px;
+
+    margin: 0;
 }
 
 .box-header {
     font-weight: bold;
-    padding: 8px;
-    margin-bottom: 4px;
+    padding: var(--box-padding);
+    margin-bottom: 0;
 
     border-bottom: 3px solid var(--accent);
 }
 
 .box-footer {
-    margin-top: 4px;
+    margin-top: 0;
 }
 
 .title {
@@ -243,51 +255,48 @@ body {
 
 #box-main {
     position: absolute;
+    top: var(--edge-gap);
+    bottom: var(--edge-gap);
+    left: var(--edge-gap);
 
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 60%;
+    /* Leave room for the store and the central gap */
+    right: calc(40% + var(--box-gap) / 2);
 
     overflow: hidden;
 }
 
-/* Resource display */
-
 #box-res.fullWidth {
     position: absolute;
 
-    width: 100%;
-    top: 5%;
-    height: 5%;
+    top: var(--edge-gap);
+    left: var(--edge-gap);
+    right: var(--edge-gap);
+
+    width: auto;
+    height: auto;
     min-height: 32px;
 
     z-index: 100;
 }
 
-/* Buttons container */
-
 #box-buttons {
     position: absolute;
-
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
 }
 
-/* Store */
-
 #box-store {
     position: absolute;
 
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 40%;
-}
+    top: var(--edge-gap);
+    bottom: var(--edge-gap);
+    left: calc(60% + var(--box-gap) / 2);
+    right: var(--edge-gap);
 
-/* Buildings and upgrades */
+    width: auto;
+}
 
 #box-buildings,
 #box-upgrades {
@@ -295,43 +304,56 @@ body {
 
     top: 0;
     bottom: 0;
-    right: 0;
     width: 50%;
 
     overflow-x: hidden;
     overflow-y: auto;
 
-    padding-bottom: 48px;
+    padding: 0 0 48px;
 }
 
 #box-buildings {
-    right: 50%;
+    left: 0;
+    right: auto;
+}
+
+#box-upgrades {
+    left: 50%;
+    right: auto;
 }
 
 #box-buildings > .box-header {
     padding-bottom: 16px;
 }
 
-/* Bulk purchase display */
-
 #bulkDisplay {
-    margin: -20px 24px 6px;
+    margin: 0;
     border: none;
     background: transparent;
 }
 
 
+
+
 /* =====================================================
    8. CUSTOM HEADER
-   Requires .headerBox in the HTML.
    ===================================================== */
 
 .headerBox {
-    width: 100%;
-    min-height: 80px;
-    padding: 15px;
-    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    width: auto;
+    height: var(--header-height);
+    min-height: 0;
+
+    margin:
+        var(--edge-gap)
+        var(--edge-gap)
+        var(--header-gap);
+
+    padding: var(--box-padding);
     box-sizing: border-box;
 
     background: var(--bg-panel-dark);
@@ -347,7 +369,6 @@ body {
 
 /* =====================================================
    9. CUSTOM THREE-COLUMN GRID
-   Requires matching HTML elements.
    ===================================================== */
 
 .bodyContainer {
@@ -361,26 +382,31 @@ body {
     grid-template-rows:
         repeat(2, minmax(0, 1fr));
 
-    gap: 15px;
+    gap: var(--box-gap);
 
-    width: 100%;
+    width: calc(100% - 2 * var(--edge-gap));
 
-    /* Fill the viewport below the header */
-    height: calc(100vh - 110px);
+    height: calc(
+        100vh
+        - 2 * var(--edge-gap)
+        - var(--header-height)
+        - var(--header-gap)
+    );
+
+    margin: 0 var(--edge-gap);
+    padding: 0;
+
     min-height: 0;
-
     box-sizing: border-box;
 }
-
-/* Left and right stacks */
 
 .sideColumn {
     display: grid;
 
     grid-template-rows:
-        repeat(2, minmax(150px, auto));
+        repeat(2, minmax(0, 1fr));
 
-    gap: 15px;
+    gap: var(--box-gap);
 
     min-width: 0;
     min-height: 0;
@@ -396,8 +422,6 @@ body {
     grid-row: 1 / 3;
 }
 
-/* Center column spanning both rows */
-
 .centerColumn {
     grid-column: 2;
     grid-row: 1 / 3;
@@ -405,17 +429,17 @@ body {
     display: flex;
     flex-direction: column;
 
+    gap: var(--box-gap);
+
     min-width: 0;
     min-height: 0;
 }
 
-/* Custom boxes */
-
 .gameBox {
     min-width: 0;
     min-height: 0;
-    padding: 12px;
 
+    padding: var(--box-padding);
     box-sizing: border-box;
 
     background: var(--bg-panel);
@@ -424,8 +448,6 @@ body {
     border: 1px solid var(--border);
     border-radius: var(--radius);
 }
-
-/* Alternative full-height grid item */
 
 .gameBox.fullHeight {
     grid-column: 2;
@@ -438,12 +460,17 @@ body {
    ===================================================== */
 
 @media (max-width: 700px) {
+    #game {
+        height: 100vh;
+        overflow: auto;
+    }
+
     .bodyContainer {
         grid-template-columns: minmax(0, 1fr);
         grid-template-rows: auto;
 
         height: auto;
-        min-height: 0;
+        margin-bottom: var(--edge-gap);
     }
 
     .sideColumn:first-child,
@@ -458,11 +485,15 @@ body {
         grid-template-rows: auto;
     }
 
+    .gameBox {
+        min-height: 150px;
+    }
+
     .headerBox {
-        min-height: 60px;
         font-size: 17px;
     }
 }
+
 
 
 /* Force corners throughout the game */
