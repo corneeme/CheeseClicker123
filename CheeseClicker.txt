@@ -54,8 +54,8 @@ Layout
         class:gameBox
 
     *achPopup
-        contains:Achivements
-        header:Achivements
+        contains:Achievements
+        header:Achievements
         class:floatingPopup
     
 
