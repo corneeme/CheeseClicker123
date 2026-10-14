@@ -2,7 +2,7 @@ Let's make a game!
     name: CheeseWorks International
     author: Nosreme
     desc: Muahahahahah 
-    version: 0.16
+    version: 0.191
 
 Settings 
     building cost increase: 115% 
@@ -13,6 +13,7 @@ Layout
     *topHeader 
         header:Game Header 
         class:headerBox 
+        contains:tag:utility
     
     *bodyWrapper 
         contains:leftCol, centerBox, rightCol 
@@ -60,8 +61,13 @@ Resources
 Buttons 
     *manifestCheese
         name:🧀
-        desc:Ah, the humble cheesemaker. In the beginning, this was all anyone had to make this wondrous substance, their own mind. 
         on click:yield 1 cheese 
+        tag:cheese
+
+    *openachivement
+        name:Achivements
+        tag:utility
+    
 
 Buildings 
     *cow 
