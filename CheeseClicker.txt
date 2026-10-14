@@ -67,6 +67,7 @@ Buttons
     *openachivement
         name:Achivements
         tag:utility
+        on click:show floatingPopup
     
 
 Buildings 
