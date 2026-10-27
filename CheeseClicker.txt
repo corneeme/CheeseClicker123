@@ -1,103 +1,258 @@
 Let's make a game!
-    name: CheeseWorks International
-    author: Nosreme
-    desc: Muahahahahah 
-    version: 0.191
+	name:Cheese Inc.
+	by:Cheese Inc. Internal Systems
+	desc:An incremental workplace initiative. Click cheese, purchase production capacity, and comply with all applicable cheese reporting requirements.
+	version:0.1
 
-Settings 
-    building cost increase: 115% 
-    building cost refund: 50% 
-    stylesheet:https://raw.githubusercontent.com/corneeme/CheeseClicker123/refs/heads/main/stylesheet.txt
+Settings
+	building cost increase:115%
+	building cost refund:50%
+	no bulk particles
 
-Layout 
-    *topHeader 
-        header:Game Header 
-        class:headerBox 
-        contains:tag:utility
-    
-    *bodyWrapper 
-        contains:leftCol, centerBox, rightCol 
-        class:bodyContainer 
-    
-    
-    *leftCol 
-        contains:leftTop, leftBottom 
-        class:sideColumn 
-    
-    *leftTop
-        contains:Resources
-        header:Left Top (Resources) 
-        class:gameBox 
-    
-    *leftBottom 
-        contains:BulkDisplay, Buildings
-        header:Left Bottom (Buildings) 
-        class:gameBox 
-    
-    *centerBox 
-        contains:Buttons
-        header:Center Hub (Actions) 
-        class:gameBox centerColumn 
-    
-    *rightCol 
-        contains:rightTop, rightBottom 
-        class:sideColumn 
-    
-    *rightTop 
-        contains:Upgrades 
-        header:Right Top (Upgrades) 
-        class:gameBox 
-    
-    *rightBottom 
-        contains:Achievements 
-        header:Right Bottom (Achievements) 
-        class:gameBox
+CSS
+#game { font-family: Arial, Helvetica, sans-serif; color: #25251f; background: #e8dfc8; }
+#game [id^="box-"] { border: 3px solid #292b2a; box-shadow: 3px 3px 0 #88816f; background: #f4edda; padding: 8px; }
+.headerRow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
+.headerRow > [id^="box-"] { flex: 1 1 150px; min-width: 0; }
+#box-main { box-sizing: border-box; float: left; width: 65%; }
+#box-store { box-sizing: border-box; float: right; display: flex; flex-wrap: wrap; gap: 8px; width: 34%; }
+#box-store > [id^="box-"] { box-sizing: border-box; flex: 1 1 210px; min-width: 0; }
+@media (max-width: 760px) {
+	#box-main, #box-store { float: none; width: 100%; }
+	#box-store > [id^="box-"] { flex-basis: 100%; }
+}
+.employeePanel { background: #c8e3eb; }
+.memoPanel { background: #1e382b; color: #b5e68a; font-family: Consolas, monospace; }
+.workPanel { background: #f4d98d; text-align: center; }
+.cheeseButton { font-size: 5em; border: 3px solid #a87924; background: #ffe59c; padding: 10px; }
 
-    *achPopup
-        contains:Achievements
-        header:Achievements
-        class:floatingPopup
-    
+Layout
+	*main
+		contains:header, res, buttons, achievementArea
+	*header
+		contains:employeeArea, memoArea, utilityArea
+		class:headerRow
+	*employeeArea
+		contains:employeeBadge
+		class:employeePanel
+	*memoArea
+		contains:memo1, memo2, memo3, memo4, Log
+		class:memoPanel
+		header:INTERNAL MEMO BOARD
+	*utilityArea
+		contains:statsOpen, statsClose, statsReport, optionsOpen, optionsClose, memoBoardOn, memoBoardOff
+		class:utilityPanel
+	*res
+		contains:Resources
+		class:fullWidth workPanel
+		header:CHEESE WORK AREA
+	*buttons
+		contains:cheeseButton
+		class:workPanel
+	*store
+		contains:generatorArea, upgradeArea
+	*generatorArea
+		contains:BulkDisplay, Buildings
+		header:PRODUCTION DEPARTMENTS
+		tooltip origin:left
+	*upgradeArea
+		contains:Upgrades
+		header:APPROVED IMPROVEMENTS
+		tooltip origin:left
+	*achievementArea
+		contains:Achievements
+		header:EMPLOYEE RECOGNITION
+		costs:hide
 
-Resources 
-    *cheese
-        name:Cheese 
-        desc:A mystical and wonderful thing, with infinite properties.
+Buttons
+	*TEMPLATE
+		class:corporateButton
+	*cheeseButton
+		name:🧀
+		desc:Click to produce 1 Cheese. The wheel has been approved for direct handling.
+		on click:yield 1 cheese
+		show clicks
+		class:bigButton cheeseButton
+	*employeeBadge
+		name:Employee 0047 — Junior Rind Associate
+		desc:CHEESE INC. EMPLOYEE BADGE<.>Employee number: 0047<.>Current rank: Junior Rind Associate<.>Responsibilities remain unchanged.
+		on click:toast Employee 0047. Your title is current. Your responsibilities are not.
+		class:employeeBadge
+	*statsOpen
+		name:Stats
+		desc:Open the current production report.
+		class:menuButton
+		shown
+		on click:hide optionsOpen hide optionsClose hide tag:optionsPanel show statsClose show statsReport hide statsOpen
+	*statsClose
+		name:Close Stats
+		desc:Close the production report.
+		class:menuButton
+		hidden
+		on click:hide statsClose hide statsReport show statsOpen show optionsOpen
+	*statsReport
+		name:Live Production Report
+		desc:Click for current inventory, lifetime output, production, department counts, and upgrades.
+		class:statsPanel
+		hidden
+		on click:toast Current Cheese: [cheese]. Lifetime Cheese: [cheese:earned]. Production: [cheese:ps]/second. Graters: [deskGrater], Crocks: [breakroomCrock], Vats: [automatedCurdVat], Offices: [regionalDairyOffice]. Click Procedure: [revisedClickProcedure]. Grater Calibration: [graterCalibration]. Crock Protocol: [crockRefillProtocol].
+	*optionsOpen
+		name:Options
+		desc:Open the in-game options.
+		class:menuButton
+		shown
+		on click:
+			hide statsClose
+			hide statsReport
+			show statsOpen
+			hide optionsOpen
+			show optionsClose
+			show tag:optionsPanel
+			if (memoBoardEnabled=1)
+				show memoBoardOn
+				hide memoBoardOff
+			else
+				hide memoBoardOn
+				show memoBoardOff
+			end
+		end
+	*optionsClose
+		name:Close Options
+		desc:Close the in-game options.
+		class:menuButton
+		hidden
+		on click:hide optionsClose hide tag:optionsPanel show optionsOpen
+	*memoBoardOn
+		name:Memo Board: On
+		desc:Hide the memo board.
+		class:optionButton
+		hidden
+		tag:optionsPanel
+		on click:
+			if (memoBoardEnabled=1)
+				set memoBoardEnabled to 0
+				hide tag:memoBoard
+				hide memoBoardOn
+				show memoBoardOff
+			else
+				set memoBoardEnabled to 1
+				show memo1
+				hide memoBoardOff
+				show memoBoardOn
+			end
+		end
+	*memoBoardOff
+		name:Memo Board: Off
+		desc:Show the memo board again.
+		class:optionButton
+		hidden
+		tag:optionsPanel
+		on click:set memoBoardEnabled to 1 show memo1 hide memoBoardOff show memoBoardOn
+	*memo1
+		name:Memo 01 • Vessel Accountability
+		desc:Please record all breakroom crock refills. Unscheduled refills count as initiative.
+		shown
+		tag:memoBoard
+		on click:hide memo1 show memo2 log Memo 02: The crock has demonstrated excellent self-service initiative. No further investigation is budgeted.
+		class:memoButton
+	*memo2
+		name:Memo 02 • Self-Service Initiative
+		desc:The crock has demonstrated excellent self-service initiative. No further investigation is budgeted.
+		hidden
+		tag:memoBoard
+		on click:hide memo2 show memo3 log Memo 03: Regional output projections now include the conference room. Facilities denies owning the room.
+		class:memoButton
+	*memo3
+		name:Memo 03 • Room Ownership
+		desc:Regional output projections now include the conference room. Facilities denies owning the room.
+		hidden
+		tag:memoBoard
+		on click:hide memo3 show memo4 log Memo 04: Please do not reconcile tomorrow's cheese against today's staffing roster.
+		class:memoButton
+	*memo4
+		name:Memo 04 • Reconciliation
+		desc:Please do not reconcile tomorrow's cheese against today's staffing roster.
+		hidden
+		tag:memoBoard
+		on click:hide memo4 show memo1 log Memo 01: Please record all breakroom crock refills. Unscheduled refills count as initiative.
+		class:memoButton
 
-Buttons 
-    *manifestCheese
-        name:🧀
-        on click:yield 1 cheese 
-        tag:cheese
+Resources
+	*cheese
+		name:Cheese
+		desc:Current inventory for all departments. Lifetime output is available in this resource's details.
+		show earned
+		class:cheeseResource
+	*memoBoardEnabled
+		name:Memo board enabled
+		start with:1
+		always hidden
 
-    *openachivement
-        name:Achivements
-        tag:utility
-        on click:show achPopup
-    
+Buildings
+	*TEMPLATE
+		class:generator
+	*deskGrater|deskGraters
+		name:Desk Grater|Desk Graters
+		desc:Effect: produces 0.1 Cheese per second. Department note: paper jams are classified as dairy incidents.
+		cost:10 cheese
+		on tick:yield 0.1 cheese
+		unlocked
+	*breakroomCrock|breakroomCrocks
+		name:Breakroom Crock|Breakroom Crocks
+		desc:Effect: produces 0.5 Cheese per second. The crock refills itself and has completed the required form.
+		cost:50 cheese
+		on tick:yield 0.5 cheese
+		req:25 cheese:earned
+	*automatedCurdVat|automatedCurdVats
+		name:Automated Curd Vat|Automated Curd Vats
+		desc:Effect: produces 2 Cheese per second. Automation has reduced the number of meetings required to approve cheese.
+		cost:250 cheese
+		on tick:yield 2 cheese
+		req:100 cheese:earned
+	*regionalDairyOffice|regionalDairyOffices
+		name:Regional Dairy Office|Regional Dairy Offices
+		desc:Effect: produces 8 Cheese per second. The office has submitted a request to classify its conference room as a dairy asset.
+		cost:1000 cheese
+		on tick:yield 8 cheese
+		req:500 cheese:earned
 
-Buildings 
-    *cow 
-        name:Cow 
-        desc:The day humanity discovered cows could make cheese was the day humanity learned of the universe. Produces [cheese:ps] cheese per second.
-        cost:15 cheese 
-        on tick:yield 0.1 cheese
+Upgrades
+	*revisedClickProcedure
+		name:Revised Click Procedure
+		desc:Effect: +1 Cheese per click. The revised procedure has been circulated to the wheel.
+		cost:25 cheese
+		passive:increase yield of cheeseButton by 1
+		req:10 cheese:earned
+	*graterCalibration
+		name:Quarterly Grater Calibration
+		desc:Effect: Desk Graters produce twice as much Cheese.
+		cost:75 cheese
+		passive:multiply yield of deskGrater by 2
+		req:1 deskGrater
+	*crockRefillProtocol
+		name:Crock Refill Protocol
+		desc:Effect: Breakroom Crocks produce twice as much Cheese. The crock has accepted assistant-supervisor duties.
+		cost:300 cheese
+		passive:multiply yield of breakroomCrock by 2
+		req:1 breakroomCrock
 
-    *creamery
-        name:Creamery
-        desc:The humble homes of cheese production, these buildings have been bolstering the creation of cheese for centuries, fueling innovation. Produces [cheese:ps] cheese per second.
-        cost:100 cheese
-        on tick:yield 1 cheese
+Achievements
+	*firstClick
+		name:Initial Contact
+		desc:Click the cheese wheel once. This interaction has been added to the record.
+		req:cheeseButton:clicks>=1
+	*firstDepartment
+		name:Staffing Approved
+		desc:Purchase your first production department.
+		req:(deskGrater>=1 or breakroomCrock>=1 or automatedCurdVat>=1 or regionalDairyOffice>=1)
+	*tenCheese
+		name:Minimum Viable Cheese
+		desc:Earn 10 Cheese. Reporting threshold met.
+		req:10 cheese:earned
+	*crossDepartment
+		name:Interdepartmental Output
+		desc:Own two different generator types. Their managers have not yet been introduced.
+		req:(deskGrater>=1 and breakroomCrock>=1) or (deskGrater>=1 and automatedCurdVat>=1) or (deskGrater>=1 and regionalDairyOffice>=1) or (breakroomCrock>=1 and automatedCurdVat>=1) or (breakroomCrock>=1 and regionalDairyOffice>=1) or (automatedCurdVat>=1 and regionalDairyOffice>=1)
 
-Upgrades 
-    *concentration 
-        name:Concentrated Concentration
-        desc:You have trained yourself to focus solely on the cheese. You have doubled your CPC.
-        cost:50 cheese 
-        passive:multiply yield of manifestCheese by 2 
 
-Achievements 
-    *welcome
-        name:Welcome to CheeseWorks International!
-        desc:As a INSERT RANK, you will work on the factory floor to aid in the production of our delicious cheese! Employees are reminded that any anomalies are to be reported to upper management immidently. (CheeseWorks International Orientation Video)
-        req:manifestCheese:clicks>=1
+
