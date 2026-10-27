@@ -8,23 +8,8 @@ Settings
 	building cost increase:115%
 	building cost refund:50%
 	no bulk particles
-
-CSS
-#game { font-family: Arial, Helvetica, sans-serif; color: #25251f; background: #e8dfc8; }
-#game [id^="box-"] { border: 3px solid #292b2a; box-shadow: 3px 3px 0 #88816f; background: #f4edda; padding: 8px; }
-.headerRow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; }
-.headerRow > [id^="box-"] { flex: 1 1 150px; min-width: 0; }
-#box-main { box-sizing: border-box; float: left; width: 65%; }
-#box-store { box-sizing: border-box; float: right; display: flex; flex-wrap: wrap; gap: 8px; width: 34%; }
-#box-store > [id^="box-"] { box-sizing: border-box; flex: 1 1 210px; min-width: 0; }
-@media (max-width: 760px) {
-	#box-main, #box-store { float: none; width: 100%; }
-	#box-store > [id^="box-"] { flex-basis: 100%; }
-}
-.employeePanel { background: #c8e3eb; }
-.memoPanel { background: #1e382b; color: #b5e68a; font-family: Consolas, monospace; }
-.workPanel { background: #f4d98d; text-align: center; }
-.cheeseButton { font-size: 5em; border: 3px solid #a87924; background: #ffe59c; padding: 10px; }
+	// Custom styles are in CHEESE_CLICKER_STYLE.txt. Add its hosted raw URL here as stylesheet:<URL>.
+	stylesheet:
 
 Layout
 	*main
@@ -95,7 +80,7 @@ Buttons
 		desc:Click for current inventory, lifetime output, production, department counts, and upgrades.
 		class:statsPanel
 		hidden
-		on click:toast Current Cheese: [cheese]. Lifetime Cheese: [cheese:earned]. Production: [cheese:ps]/second. Graters: [deskGrater], Crocks: [breakroomCrock], Vats: [automatedCurdVat], Offices: [regionalDairyOffice]. Click Procedure: [revisedClickProcedure]. Grater Calibration: [graterCalibration]. Crock Protocol: [crockRefillProtocol].
+		on click:toast Current Cheese: [cheese]. Lifetime Cheese: [cheese:earned]. Production: [cheese:ps]/second. Graters: [deskGrater], Crocks: [breakroomCrock], Vats: [automatedCurdVat], Offices: [regionalDairyOffice]. Click Procedure: [clickProcedure]. Grater Calibration: [graterCalibration]. Crock Protocol: [crockRefillProtocol].
 	*optionsOpen
 		name:Options
 		desc:Open the in-game options.
@@ -217,7 +202,7 @@ Buildings
 		req:500 cheese:earned
 
 Upgrades
-	*revisedClickProcedure
+	*clickProcedure
 		name:Revised Click Procedure
 		desc:Effect: +1 Cheese per click. The revised procedure has been circulated to the wheel.
 		cost:25 cheese
