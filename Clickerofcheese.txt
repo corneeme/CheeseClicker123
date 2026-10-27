@@ -9,7 +9,7 @@ Settings
 	building cost refund:50%
 	no bulk particles
 	// Custom styles are in CHEESE_CLICKER_STYLE.txt. Add its hosted raw URL here as stylesheet:<URL>.
-	stylesheet:
+	stylesheet:https://raw.githubusercontent.com/corneeme/CheeseClicker123/refs/heads/main/stylesheet.txt
 
 Layout
 	*main
