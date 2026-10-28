@@ -1,6 +1,6 @@
 html, body {
 	width: 100%;
-	min-width: 1280px;
+	min-width: 0;
 	margin: 0;
 	padding: 0;
 	overflow-x: auto;
@@ -9,7 +9,7 @@ html, body {
 #game {
 	box-sizing: border-box;
 	width: 100vw;
-	min-width: 1280px;
+	min-width: 0;
 	max-width: none;
 	margin: 0;
 	padding: 0;
@@ -30,7 +30,7 @@ html, body {
 #game #box-store {
 	float: none;
 	width: 100vw;
-	min-width: 1280px;
+	min-width: 0;
 	max-width: none;
 	margin: 0;
 }
@@ -43,6 +43,7 @@ html, body {
 }
 
 #game #box-store {
+	min-width: 1280px;
 	padding: 0 0 12px;
 	border: 0;
 	box-shadow: none;
@@ -51,7 +52,7 @@ html, body {
 
 #game #box-header {
 	display: grid;
-	grid-template-columns: 260px minmax(520px, 1fr) 220px;
+	grid-template-columns: 220px minmax(0, 1fr) 190px;
 	gap: 14px;
 	align-items: stretch;
 	width: 100%;
