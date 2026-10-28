@@ -115,12 +115,12 @@ Buttons
 		tag:optionsPanel
 		on click:
 			if (memoBoardEnabled=1)
-				set memoBoardEnabled to 0
+				memoBoardEnabled is 0
 				hide tag:memoBoard
 				hide memoBoardOn
 				show memoBoardOff
 			else
-				set memoBoardEnabled to 1
+				memoBoardEnabled is 1
 				show memo1
 				hide memoBoardOff
 				show memoBoardOn
@@ -132,7 +132,7 @@ Buttons
 		class:optionButton
 		hidden
 		tag:optionsPanel
-		on click:set memoBoardEnabled to 1 show memo1 hide memoBoardOff show memoBoardOn
+		on click:memoBoardEnabled is 1 show memo1 hide memoBoardOff show memoBoardOn
 	*memo1
 		name:Memo 01 • Vessel Accountability
 		desc:Please record all breakroom crock refills. Unscheduled refills count as initiative.
@@ -238,6 +238,9 @@ Achievements
 		name:Interdepartmental Output
 		desc:Own two different generator types. Their managers have not yet been introduced.
 		req:(deskGrater>=1 and breakroomCrock>=1) or (deskGrater>=1 and automatedCurdVat>=1) or (deskGrater>=1 and regionalDairyOffice>=1) or (breakroomCrock>=1 and automatedCurdVat>=1) or (breakroomCrock>=1 and regionalDairyOffice>=1) or (automatedCurdVat>=1 and regionalDairyOffice>=1)
+
+
+
 
 
 
