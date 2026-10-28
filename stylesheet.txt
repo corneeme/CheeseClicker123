@@ -269,6 +269,14 @@ html, body {
 	text-align: left;
 }
 
+/* Keep each tagged view exclusive even when row styling sets its own display. */
+#game #box-productionArea:has(.tag-statsContent.visible) .tag-productionContent,
+#game #box-productionArea:has(.tag-optionsPanel.visible) .tag-productionContent,
+#game #box-productionArea:not(:has(.tag-statsContent.visible)) .tag-statsContent,
+#game #box-productionArea:not(:has(.tag-optionsPanel.visible)) .tag-optionsPanel {
+	display: none !important;
+}
+
 #game #box-productionArea:has(.tag-statsContent.visible) .thing,
 #game #box-productionArea:has(.tag-optionsPanel.visible) .thing {
 	background: #050505;
