@@ -85,8 +85,8 @@ html, body {
 #game #box-cheeseArea .box-things-Resources,
 #game #box-cheeseArea .box-things-cheeseClicker,
 #game #box-productionArea .box-things-productionContent,
-#game #box-generatorArea .box-things-statsContent,
-#game #box-generatorArea .box-things-optionsPanel {
+#game #box-productionArea .box-things-statsContent,
+#game #box-productionArea .box-things-optionsPanel {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -97,8 +97,8 @@ html, body {
 
 #game #box-utilityArea .box-things-utilityControl,
 #game #box-productionArea .box-things-productionContent,
-#game #box-generatorArea .box-things-statsContent,
-#game #box-generatorArea .box-things-optionsPanel {
+#game #box-productionArea .box-things-statsContent,
+#game #box-productionArea .box-things-optionsPanel {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-start;
@@ -223,24 +223,39 @@ html, body {
 }
 
 #game #box-generatorArea {
-	min-height: 560px;
-	background: #f2ead8;
-}
-
-#game #box-productionArea {
+	min-height: 0;
+	margin: 0;
 	padding: 0;
 	border: 0;
 	box-shadow: none;
 	background: transparent;
 }
 
-#game #box-productionArea:not(:has(.tag-productionContent.visible)) { display: none; }
+#game #box-productionArea {
+	box-sizing: border-box;
+	min-height: 560px;
+	padding: 10px;
+	border: 3px solid #292b2a;
+	box-shadow: 3px 3px 0 #88816f;
+	background: #f2ead8;
+}
+
+#game #box-productionArea:has(.tag-statsContent.visible),
+#game #box-productionArea:has(.tag-optionsPanel.visible) {
+	background: #050505;
+	color: #f6f6f6;
+	border-color: #050505;
+	box-shadow: none;
+}
 
 #game #box-productionArea .header {
 	margin: 2px 0 12px;
 	font: bold 15px Arial, Helvetica, sans-serif;
 	letter-spacing: .06em;
 }
+
+#game #box-productionArea:has(.tag-statsContent.visible) .header,
+#game #box-productionArea:has(.tag-optionsPanel.visible) .header { display: none; }
 
 #game #box-productionArea .generatorRow {
 	display: block;
@@ -254,30 +269,22 @@ html, body {
 	text-align: left;
 }
 
-#game #box-generatorArea:has(.tag-statsContent.visible),
-#game #box-generatorArea:has(.tag-optionsPanel.visible) {
-	background: #050505;
-	color: #f6f6f6;
-	border-color: #050505;
-	box-shadow: none;
-}
-
-#game #box-generatorArea:has(.tag-statsContent.visible) .thing,
-#game #box-generatorArea:has(.tag-optionsPanel.visible) .thing {
+#game #box-productionArea:has(.tag-statsContent.visible) .thing,
+#game #box-productionArea:has(.tag-optionsPanel.visible) .thing {
 	background: #050505;
 	color: #f6f6f6;
 	border-color: #565656;
 	box-shadow: none;
 }
 
-#game #box-generatorArea:has(.tag-statsContent.visible) .statsPanel {
+#game #box-productionArea:has(.tag-statsContent.visible) .statsPanel {
 	width: 100%;
 	font-size: 14px;
 	text-align: left;
 }
 
-#game #box-generatorArea .box-things-statsContent,
-#game #box-generatorArea .box-things-optionsPanel {
+#game #box-productionArea .box-things-statsContent,
+#game #box-productionArea .box-things-optionsPanel {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-start;
@@ -285,8 +292,8 @@ html, body {
 	width: 100%;
 }
 
-#game #box-generatorArea .statsItem,
-#game #box-generatorArea .achievementRow {
+#game #box-productionArea .statsItem,
+#game #box-productionArea .achievementRow {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -303,8 +310,8 @@ html, body {
 	font-size: 0 !important;
 }
 
-#game #box-generatorArea .statsItem::before,
-#game #box-generatorArea .achievementRow::before {
+#game #box-productionArea .statsItem::before,
+#game #box-productionArea .achievementRow::before {
 	content: "";
 	display: block;
 	box-sizing: border-box;
@@ -315,10 +322,10 @@ html, body {
 	background: #050505;
 }
 
-#game #box-generatorArea .statsItem.cantAfford.notOwned,
-#game #box-generatorArea .achievementRow.cantAfford.notOwned { opacity: .45; }
+#game #box-productionArea .statsItem.cantAfford.notOwned,
+#game #box-productionArea .achievementRow.cantAfford.notOwned { opacity: .45; }
 
-#game #box-generatorArea .optionButton {
+#game #box-productionArea .optionButton {
 	min-width: 190px;
 	padding: 12px;
 	background: #050505;
