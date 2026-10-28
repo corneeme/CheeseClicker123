@@ -3,7 +3,7 @@ html, body {
 	min-width: 0;
 	margin: 0;
 	padding: 0;
-	overflow-x: auto;
+	overflow-x: hidden;
 }
 
 #game {
@@ -29,7 +29,7 @@ html, body {
 #game #box-main,
 #game #box-store {
 	float: none;
-	width: 100vw;
+	width: 100%;
 	min-width: 0;
 	max-width: none;
 	margin: 0;
@@ -43,7 +43,6 @@ html, body {
 }
 
 #game #box-store {
-	min-width: 1280px;
 	padding: 0 0 12px;
 	border: 0;
 	box-shadow: none;
@@ -141,11 +140,13 @@ html, body {
 
 #game #box-workLayout {
 	display: grid;
-	grid-template-columns: 280px minmax(520px, 1fr) 420px;
+	grid-template-columns: minmax(190px, 0.8fr) minmax(0, 1.5fr) minmax(260px, 1fr);
+	grid-template-areas: "upgrades cheese generators";
 	gap: 16px;
 	align-items: stretch;
 	width: 100%;
-	min-width: 1280px;
+	min-width: 0;
+	min-height: 68vh;
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -153,22 +154,28 @@ html, body {
 	background: transparent;
 }
 
-#game #box-workLayout > [id^="box-"] { min-width: 0; min-height: 560px; }
+#game #box-workLayout > [id^="box-"] { min-width: 0; min-height: 0; }
 
-#game #box-upgradeArea { background: #edf3df; }
+#game #box-upgradeArea { grid-area: upgrades; background: #edf3df; }
 #game .upgradeRow {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
 	width: 62px;
-	height: 62px;
-	min-height: 62px;
+	height: auto;
+	min-height: 0;
+	aspect-ratio: 1 / 1;
 	margin: 7px 0;
 	padding: 3px;
 	overflow: hidden;
 	font-size: 0 !important;
 	color: transparent !important;
+}
+
+#game #box-upgradeArea .upgradeRow.owned,
+#game #box-upgradeArea .upgradeRow.hidden {
+	display: none !important;
 }
 
 #game .upgradeRow::before {
@@ -177,6 +184,7 @@ html, body {
 	box-sizing: border-box;
 	width: 48px;
 	height: 48px;
+	aspect-ratio: 1 / 1;
 	border: 2px solid #292b2a;
 	box-shadow: inset 0 0 0 4px #d4ccb5, 2px 2px 0 #88816f;
 	background: #c8c1ac;
@@ -187,6 +195,7 @@ html, body {
 }
 
 #game #box-cheeseArea {
+	grid-area: cheese;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -212,8 +221,9 @@ html, body {
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
-	width: 260px;
-	height: 220px;
+	width: min(260px, 78%);
+	 aspect-ratio: 13 / 11;
+	height: auto;
 	margin: 34px auto;
 	padding: 10px;
 	border: 3px solid #a87924;
@@ -224,6 +234,7 @@ html, body {
 }
 
 #game #box-generatorArea {
+	grid-area: generators;
 	min-height: 0;
 	margin: 0;
 	padding: 0;
@@ -270,6 +281,46 @@ html, body {
 	text-align: left;
 }
 
+@media (max-width: 900px) {
+	#game #box-workLayout {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		grid-template-areas:
+			"cheese cheese"
+			"upgrades generators";
+	}
+
+	#game #box-productionArea,
+	#game #box-cheeseArea { min-height: 360px; }
+}
+
+@media (max-width: 600px) {
+	#game #box-header {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	#game #box-employeeArea,
+	#game #box-memoArea,
+	#game #box-utilityArea { grid-column: 1; }
+
+	#game #box-utilityArea {
+		flex-direction: row;
+	}
+
+	#game #box-utilityArea .thing { flex: 1 1 0; }
+
+	#game #box-workLayout {
+		grid-template-columns: minmax(0, 1fr);
+		grid-template-areas:
+			"cheese"
+			"generators"
+			"upgrades";
+		gap: 10px;
+	}
+
+	#game #box-cheeseArea,
+	#game #box-productionArea { min-height: 280px; }
+}
+
 /* Keep each tagged view exclusive even when row styling sets its own display. */
 #game #box-productionArea:has(.tag-statsContent.visible) .tag-productionContent,
 #game #box-productionArea:has(.tag-optionsPanel.visible) .tag-productionContent,
@@ -309,8 +360,9 @@ html, body {
 	box-sizing: border-box;
 	flex: 0 0 62px;
 	width: 62px;
-	height: 62px;
-	min-height: 62px;
+	height: auto;
+	min-height: 0;
+	aspect-ratio: 1 / 1;
 	padding: 3px;
 	overflow: hidden;
 	border: 2px solid #c6c6c6;
@@ -326,6 +378,7 @@ html, body {
 	box-sizing: border-box;
 	width: 48px;
 	height: 48px;
+	aspect-ratio: 1 / 1;
 	border: 2px solid #e3e3e3;
 	box-shadow: inset 0 0 0 4px #242424;
 	background: #050505;
