@@ -17,21 +17,21 @@ Layout
 		contains:employeeArea, memoArea, utilityArea
 		class:headerRow
 	*employeeArea
-		contains:employeeBadge
+		contains:tag:employeeBadgeItem
 		class:employeePanel
 	*memoArea
-		contains:memo1, memo2, memo3, memo4, Log
+		contains:tag:memoBoard, Log
 		class:memoPanel
 		header:INTERNAL MEMO BOARD
 	*utilityArea
-		contains:statsOpen, statsClose, statsReport, optionsOpen, optionsClose, memoBoardOn, memoBoardOff
+		contains:tag:utilityControl
 		class:utilityPanel
 	*res
 		contains:Resources
 		class:fullWidth workPanel
 		header:CHEESE WORK AREA
 	*buttons
-		contains:cheeseButton
+		contains:tag:cheeseClicker
 		class:workPanel
 	*store
 		contains:generatorArea, upgradeArea
@@ -57,33 +57,39 @@ Buttons
 		on click:yield 1 cheese
 		show clicks
 		class:bigButton cheeseButton
+		tag:cheeseClicker
 	*employeeBadge
 		name:Employee 0047 — Junior Rind Associate
 		desc:CHEESE INC. EMPLOYEE BADGE<.>Employee number: 0047<.>Current rank: Junior Rind Associate<.>Responsibilities remain unchanged.
 		on click:toast Employee 0047. Your title is current. Your responsibilities are not.
 		class:employeeBadge
+		tag:employeeBadgeItem
 	*statsOpen
 		name:Stats
 		desc:Open the current production report.
 		class:menuButton
+		tag:utilityControl
 		shown
 		on click:hide optionsOpen hide optionsClose hide tag:optionsPanel show statsClose show statsReport hide statsOpen
 	*statsClose
 		name:Close Stats
 		desc:Close the production report.
 		class:menuButton
+		tag:utilityControl
 		hidden
 		on click:hide statsClose hide statsReport show statsOpen show optionsOpen
 	*statsReport
 		name:Live Production Report
 		desc:Click for current inventory, lifetime output, production, department counts, and upgrades.
 		class:statsPanel
+		tag:utilityControl
 		hidden
 		on click:toast Current Cheese: [cheese]. Lifetime Cheese: [cheese:earned]. Production: [cheese:ps]/second. Graters: [deskGrater], Crocks: [breakroomCrock], Vats: [automatedCurdVat], Offices: [regionalDairyOffice]. Click Procedure: [clickProcedure]. Grater Calibration: [graterCalibration]. Crock Protocol: [crockRefillProtocol].
 	*optionsOpen
 		name:Options
 		desc:Open the in-game options.
 		class:menuButton
+		tag:utilityControl
 		shown
 		on click:
 			hide statsClose
@@ -104,6 +110,7 @@ Buttons
 		name:Close Options
 		desc:Close the in-game options.
 		class:menuButton
+		tag:utilityControl
 		hidden
 		on click:hide optionsClose hide tag:optionsPanel show optionsOpen
 	*memoBoardOn
@@ -111,7 +118,7 @@ Buttons
 		desc:Hide the memo board.
 		class:optionButton
 		hidden
-		tag:optionsPanel
+		tags:optionsPanel utilityControl
 		on click:
 			if (memoBoardEnabled=1)
 				lose memoBoardEnabled
@@ -130,7 +137,7 @@ Buttons
 		desc:Show the memo board again.
 		class:optionButton
 		hidden
-		tag:optionsPanel
+		tags:optionsPanel utilityControl
 		on click:
 			yield 1 memoBoardEnabled
 			show memo1
