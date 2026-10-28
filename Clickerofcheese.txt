@@ -35,10 +35,10 @@ Layout
 		contains:Resources, tag:cheeseClicker
 		class:cheesePanel
 	*generatorArea
-		contains:productionArea, tag:statsContent, tag:optionsPanel
+		contains:productionArea
 		class:generatorPanel
 	*productionArea
-		contains:BulkDisplay, tag:productionContent
+		contains:tag:productionContent, tag:statsContent, tag:optionsPanel
 		class:productionArea
 		header:PRODUCTION DEPARTMENTS
 		tooltip origin:left
