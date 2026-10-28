@@ -12,7 +12,7 @@ Settings
 
 Layout
 	*main
-		contains:header, res, buttons, achievementArea
+		contains:header, statsArea
 	*header
 		contains:employeeArea, memoArea, utilityArea
 		class:headerRow
@@ -20,21 +20,30 @@ Layout
 		contains:tag:employeeBadgeItem
 		class:employeePanel
 	*memoArea
-		contains:tag:memoBoard, Log
+		contains:tag:memoBoard
 		class:memoPanel
 		header:INTERNAL MEMO BOARD
 	*utilityArea
 		contains:tag:utilityControl
 		class:utilityPanel
+	*statsArea
+		contains:tag:statsContent
+		class:statsArea
+		header:EMPLOYEE STATS AND RECOGNITION
+	*store
+		contains:workLayout
+	*workLayout
+		contains:upgradeArea, cheeseArea, generatorArea
+		class:workLayout
+	*cheeseArea
+		contains:res, buttons
+		class:cheesePanel
 	*res
 		contains:Resources
-		class:fullWidth workPanel
-		header:CHEESE WORK AREA
+		class:resourcePanel
 	*buttons
 		contains:tag:cheeseClicker
-		class:workPanel
-	*store
-		contains:generatorArea, upgradeArea
+		class:clickPanel
 	*generatorArea
 		contains:BulkDisplay, Buildings
 		header:PRODUCTION DEPARTMENTS
@@ -43,10 +52,6 @@ Layout
 		contains:Upgrades
 		header:APPROVED IMPROVEMENTS
 		tooltip origin:left
-	*achievementArea
-		contains:Achievements
-		header:EMPLOYEE RECOGNITION
-		costs:hide
 
 Buttons
 	*TEMPLATE
@@ -70,21 +75,54 @@ Buttons
 		class:menuButton
 		tag:utilityControl
 		shown
-		on click:hide optionsOpen hide optionsClose hide tag:optionsPanel show statsClose show statsReport hide statsOpen
+		on click:
+			hide optionsOpen
+			hide optionsClose
+			hide tag:optionsPanel
+			show tag:statsContent
+			show statsClose
+			hide statsOpen
+		end
 	*statsClose
 		name:Close Stats
 		desc:Close the production report.
 		class:menuButton
 		tag:utilityControl
 		hidden
-		on click:hide statsClose hide statsReport show statsOpen show optionsOpen
+		on click:
+			hide statsClose
+			hide tag:statsContent
+			show statsOpen
+			show optionsOpen
+		end
 	*statsReport
 		name:Live Production Report
 		desc:Click for current inventory, lifetime output, production, department counts, and upgrades.
 		class:statsPanel
-		tag:utilityControl
+		tag:statsContent
 		hidden
 		on click:toast Current Cheese: [cheese]. Lifetime Cheese: [cheese:earned]. Production: [cheese:ps]/second. Graters: [deskGrater], Crocks: [breakroomCrock], Vats: [automatedCurdVat], Offices: [regionalDairyOffice]. Click Procedure: [clickProcedure]. Grater Calibration: [graterCalibration]. Crock Protocol: [crockRefillProtocol].
+	*statsClickProcedure
+		name:Purchased: Revised Click Procedure
+		desc:Approved upgrade. Effect: +1 Cheese per click.
+		class:statsItem
+		tag:statsContent
+		hidden
+		req:have clickProcedure
+	*statsGraterCal
+		name:Purchased: Quarterly Grater Calibration
+		desc:Approved upgrade. Effect: Desk Graters produce twice as much Cheese.
+		class:statsItem
+		tag:statsContent
+		hidden
+		req:have graterCalibration
+	*statsCrockProtocol
+		name:Purchased: Crock Refill Protocol
+		desc:Approved upgrade. Effect: Breakroom Crocks produce twice as much Cheese.
+		class:statsItem
+		tag:statsContent
+		hidden
+		req:have crockRefillProtocol
 	*optionsOpen
 		name:Options
 		desc:Open the in-game options.
@@ -92,8 +130,8 @@ Buttons
 		tag:utilityControl
 		shown
 		on click:
+			hide tag:statsContent
 			hide statsClose
-			hide statsReport
 			show statsOpen
 			hide optionsOpen
 			show optionsClose
@@ -112,7 +150,11 @@ Buttons
 		class:menuButton
 		tag:utilityControl
 		hidden
-		on click:hide optionsClose hide tag:optionsPanel show optionsOpen
+		on click:
+			hide optionsClose
+			hide tag:optionsPanel
+			show optionsOpen
+		end
 	*memoBoardOn
 		name:Memo Board: On
 		desc:Hide the memo board.
@@ -149,28 +191,40 @@ Buttons
 		desc:Please record all breakroom crock refills. Unscheduled refills count as initiative.
 		shown
 		tag:memoBoard
-		on click:hide memo1 show memo2 log Memo 02: The crock has demonstrated excellent self-service initiative. No further investigation is budgeted.
+		on click:
+			hide memo1
+			show memo2
+		end
 		class:memoButton
 	*memo2
 		name:Memo 02 • Self-Service Initiative
 		desc:The crock has demonstrated excellent self-service initiative. No further investigation is budgeted.
 		hidden
 		tag:memoBoard
-		on click:hide memo2 show memo3 log Memo 03: Regional output projections now include the conference room. Facilities denies owning the room.
+		on click:
+			hide memo2
+			show memo3
+		end
 		class:memoButton
 	*memo3
 		name:Memo 03 • Room Ownership
 		desc:Regional output projections now include the conference room. Facilities denies owning the room.
 		hidden
 		tag:memoBoard
-		on click:hide memo3 show memo4 log Memo 04: Please do not reconcile tomorrow's cheese against today's staffing roster.
+		on click:
+			hide memo3
+			show memo4
+		end
 		class:memoButton
 	*memo4
 		name:Memo 04 • Reconciliation
 		desc:Please do not reconcile tomorrow's cheese against today's staffing roster.
 		hidden
 		tag:memoBoard
-		on click:hide memo4 show memo1 log Memo 01: Please record all breakroom crock refills. Unscheduled refills count as initiative.
+		on click:
+			hide memo4
+			show memo1
+		end
 		class:memoButton
 
 Resources
@@ -237,18 +291,26 @@ Achievements
 		name:Initial Contact
 		desc:Click the cheese wheel once. This interaction has been added to the record.
 		req:cheeseButton:clicks>=1
+		tag:statsContent
+		hidden
 	*firstDepartment
 		name:Staffing Approved
 		desc:Purchase your first production department.
 		req:(deskGrater>=1 or breakroomCrock>=1 or automatedCurdVat>=1 or regionalDairyOffice>=1)
+		tag:statsContent
+		hidden
 	*tenCheese
 		name:Minimum Viable Cheese
 		desc:Earn 10 Cheese. Reporting threshold met.
 		req:10 cheese:earned
+		tag:statsContent
+		hidden
 	*crossDepartment
 		name:Interdepartmental Output
 		desc:Own two different generator types. Their managers have not yet been introduced.
 		req:((deskGrater>=1 and breakroomCrock>=1) or (deskGrater>=1 and automatedCurdVat>=1) or (deskGrater>=1 and regionalDairyOffice>=1) or (breakroomCrock>=1 and automatedCurdVat>=1) or (breakroomCrock>=1 and regionalDairyOffice>=1) or (automatedCurdVat>=1 and regionalDairyOffice>=1))
+		tag:statsContent
+		hidden
 
 
 
