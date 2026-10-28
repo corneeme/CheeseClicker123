@@ -12,7 +12,7 @@ Settings
 
 Layout
 	*main
-		contains:header, statsArea
+		contains:header
 	*header
 		contains:employeeArea, memoArea, utilityArea
 		class:headerRow
@@ -26,26 +26,20 @@ Layout
 	*utilityArea
 		contains:tag:utilityControl
 		class:utilityPanel
-	*statsArea
-		contains:tag:statsContent
-		class:statsArea
-		header:EMPLOYEE STATS AND RECOGNITION
 	*store
 		contains:workLayout
 	*workLayout
 		contains:upgradeArea, cheeseArea, generatorArea
 		class:workLayout
 	*cheeseArea
-		contains:res, buttons
+		contains:Resources, tag:cheeseClicker
 		class:cheesePanel
-	*res
-		contains:Resources
-		class:resourcePanel
-	*buttons
-		contains:tag:cheeseClicker
-		class:clickPanel
 	*generatorArea
-		contains:BulkDisplay, Buildings
+		contains:productionArea, tag:statsContent, tag:optionsPanel
+		class:generatorPanel
+	*productionArea
+		contains:BulkDisplay, tag:productionContent
+		class:productionArea
 		header:PRODUCTION DEPARTMENTS
 		tooltip origin:left
 	*upgradeArea
@@ -76,24 +70,17 @@ Buttons
 		tag:utilityControl
 		shown
 		on click:
-			hide optionsOpen
-			hide optionsClose
-			hide tag:optionsPanel
-			show tag:statsContent
-			show statsClose
-			hide statsOpen
-		end
-	*statsClose
-		name:Close Stats
-		desc:Close the production report.
-		class:menuButton
-		tag:utilityControl
-		hidden
-		on click:
-			hide statsClose
-			hide tag:statsContent
-			show statsOpen
-			show optionsOpen
+			if (statsPanelActive=1)
+				lose statsPanelActive
+				hide tag:statsContent
+				show tag:productionContent
+			else
+				lose optionsPanelActive
+				hide tag:optionsPanel
+				yield 1 statsPanelActive
+				hide tag:productionContent
+				show tag:statsContent
+			end
 		end
 	*statsReport
 		name:Live Production Report
@@ -130,37 +117,31 @@ Buttons
 		tag:utilityControl
 		shown
 		on click:
-			hide tag:statsContent
-			hide statsClose
-			show statsOpen
-			hide optionsOpen
-			show optionsClose
-			show tag:optionsPanel
-			if (memoBoardEnabled=1)
-				show memoBoardOn
-				hide memoBoardOff
+			if (optionsPanelActive=1)
+				lose optionsPanelActive
+				hide tag:optionsPanel
+				show tag:productionContent
 			else
-				hide memoBoardOn
-				show memoBoardOff
+				lose statsPanelActive
+				hide tag:statsContent
+				yield 1 optionsPanelActive
+				hide tag:productionContent
+				show tag:optionsPanel
+				if (memoBoardEnabled=1)
+					show memoBoardOn
+					hide memoBoardOff
+				else
+					hide memoBoardOn
+					show memoBoardOff
+				end
 			end
-		end
-	*optionsClose
-		name:Close Options
-		desc:Close the in-game options.
-		class:menuButton
-		tag:utilityControl
-		hidden
-		on click:
-			hide optionsClose
-			hide tag:optionsPanel
-			show optionsOpen
 		end
 	*memoBoardOn
 		name:Memo Board: On
 		desc:Hide the memo board.
 		class:optionButton
 		hidden
-		tags:optionsPanel utilityControl
+		tag:optionsPanel
 		on click:
 			if (memoBoardEnabled=1)
 				lose memoBoardEnabled
@@ -179,7 +160,7 @@ Buttons
 		desc:Show the memo board again.
 		class:optionButton
 		hidden
-		tags:optionsPanel utilityControl
+		tag:optionsPanel
 		on click:
 			yield 1 memoBoardEnabled
 			show memo1
@@ -237,10 +218,17 @@ Resources
 		name:Memo board enabled
 		start with:1
 		always hidden
+	*statsPanelActive
+		name:Stats panel active
+		always hidden
+	*optionsPanelActive
+		name:Options panel active
+		always hidden
 
 Buildings
 	*TEMPLATE
-		class:generator
+		class:generator generatorRow
+		tag:productionContent
 	*deskGrater|deskGraters
 		name:Desk Grater|Desk Graters
 		desc:Effect: produces 0.1 Cheese per second. Department note: paper jams are classified as dairy incidents.
@@ -267,6 +255,8 @@ Buildings
 		req:500 cheese:earned
 
 Upgrades
+	*TEMPLATE
+		class:upgradeRow
 	*clickProcedure
 		name:Revised Click Procedure
 		desc:Effect: +1 Cheese per click. The revised procedure has been circulated to the wheel.
@@ -287,6 +277,8 @@ Upgrades
 		req:1 breakroomCrock
 
 Achievements
+	*TEMPLATE
+		class:achievementRow
 	*firstClick
 		name:Initial Contact
 		desc:Click the cheese wheel once. This interaction has been added to the record.
